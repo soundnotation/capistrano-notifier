@@ -139,7 +139,7 @@ describe Capistrano::Notifier::Mail do
       Time: 01/01/2012 at 12:00 AM #{Time.now.zone}
 
       Compare:
-      https://bitbucket.org/example/example/compare/890abcd...1234567
+      https://github.com/example/example/compare/890abcd...1234567
 
       Commits:
       1234567 This is the current commit (John Doe)
@@ -188,7 +188,7 @@ describe Capistrano::Notifier::Mail do
             </table>
 
             <h3>Compare:</h3>
-            <p>https://bitbucket.org/example/example/compare/890abcd...1234567</p>
+            <p>https://github.com/example/example/compare/890abcd...1234567</p>
 
             <h3>Commits:</h3>
               <p>1234567 This is the current commit (John Doe)</p>

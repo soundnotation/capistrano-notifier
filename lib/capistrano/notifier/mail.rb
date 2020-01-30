@@ -81,7 +81,7 @@ class Capistrano::Notifier::Mail < Capistrano::Notifier::Base
   end
 
   def git_prefix
-    giturl ? giturl : "https://bitbucket.org/#{github}"
+    giturl ? giturl : "https://github.com/#{github}"
   end
 
   def github
