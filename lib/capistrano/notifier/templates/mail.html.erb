@@ -4,6 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    <%- if git_log %>
+      <h3>Commits:</h3>
+      <table>
+        <tbody>
+          <%- git_log.each do |commit| -%>
+            <tr>
+              <td><a href="<%= "#{giturl}/commits/#{commit[:hash]}" %>"><%= commit[:hash] %></a></td>
+              <td><%= commit[:message] %></td>
+              <td><%= commit[:user] %></td>
+              <td><%= commit[:date] %></td>
+            </tr>
+          <%- end -%>
+        </tbody>
+      </table>
+    <%- end -%>
+
     <h3>Details:</h3>
     <table>
       <tbody>
@@ -32,11 +48,6 @@
 
     <h3>Compare:</h3>
     <p><%= git_compare_prefix %>/<%= git_range.nil? ? '' : git_range.gsub('..', '...')%></p>
-
-    <h3>Commits:</h3>
-    <%- git_log.split(/\n/).each do |commit| -%>
-      <p><%= commit %></p>
-    <%- end -%>
 
   </body>
 </html>

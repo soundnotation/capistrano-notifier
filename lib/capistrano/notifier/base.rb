@@ -18,8 +18,29 @@ class Capistrano::Notifier::Base
 
   def git_log
     return unless git_range
-
-    `git log #{git_range} --no-merges --format=format:"%h %s (%an)"`
+    cmd = "git log #{git_range} "
+    cmd << '--no-merges ' unless fetch(:notifier_mail_options)[:show_merges]
+    delimiter = '/'
+    cmd << "--format=format:\"%h#{delimiter}%s#{delimiter}%an#{delimiter}%ar\""
+    result = `#{cmd}`
+    return result if fetch(:notifier_mail_options)[:format] == :text
+    result = result.split("\n")
+    result.map do |commit_str|
+      hash_result = {}
+      %i(hash date user).each do |attr|
+        if attr == :hash
+          commit_str = commit_str.split(delimiter, 2)
+          hash_result[attr] = commit_str.first
+          commit_str = commit_str.last
+        else
+          commit_str = commit_str.rpartition(delimiter)
+          hash_result[attr] = commit_str.last
+          commit_str = commit_str.first
+        end
+      end
+      hash_result[:message] = commit_str
+      hash_result
+    end
   end
 
   def git_previous_revision
