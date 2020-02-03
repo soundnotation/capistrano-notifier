@@ -46,8 +46,9 @@
       </tbody>
     </table>
 
-    <h3>Compare:</h3>
-    <p><%= git_compare_prefix %>/<%= git_range.nil? ? '' : git_range.gsub('..', '...')%></p>
+    <!-- Disable compare currently: does not work in bitbucket (2020-02-03) -->
+    <!-- <h3>Compare:</h3>
+    <p><%#= git_compare_prefix %>/<%#= git_range.nil? ? '' : git_range.gsub('..', '...')%></p> -->
 
   </body>
 </html>

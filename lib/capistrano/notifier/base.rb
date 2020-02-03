@@ -38,7 +38,16 @@ class Capistrano::Notifier::Base
           commit_str = commit_str.first
         end
       end
-      hash_result[:message] = commit_str
+      urls = URI.extract(commit_str)
+      previous_end_index = 0
+      final_message = urls.each_with_object('') do |v, f_str|
+        begin_index = commit_str.index v
+        f_str << commit_str[previous_end_index..begin_index - 1]
+        f_str << "<a href=\"#{v}\">#{v}</a>"
+        previous_end_index = begin_index + v.size
+      end
+      final_message << commit_str[previous_end_index..-1]
+      hash_result[:message] = final_message
       hash_result
     end
   end
