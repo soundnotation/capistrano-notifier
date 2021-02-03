@@ -17,4 +17,4 @@ namespace :deploy do
   end
 end
 
-after 'deploy:restart', 'deploy:notify:mail'
+after 'puma:start', 'deploy:notify:mail'
